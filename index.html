@@ -193,7 +193,7 @@ textarea.pf-input{height:auto;padding-top:14px}
 
 /* FOOTER */
 footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto;color:#D4C8F0}
-.footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}
+.footer-inner{width:100%;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;margin-bottom:32px}
 .footer-col-title{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#DDB8FF;margin-bottom:14px;font-family:Manrope,sans-serif}
 .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .footer-logo-circle{width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#C084FC,#F472B6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900;flex-shrink:0;font-family:Manrope,sans-serif}
@@ -204,7 +204,7 @@ footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto
 .footer-contact-item{font-size:13px;color:#B0A0CC;margin-bottom:8px;line-height:1.5}
 .footer-contact-item a{color:#B0A0CC;text-decoration:none;transition:color .2s}
 .footer-contact-item a:hover{color:#C084FC}
-.footer-copy{max-width:1400px;margin:32px auto 0;padding-top:20px;border-top:1px solid #EDE8F5;text-align:center;font-size:13px;color:#9585B0;font-family:Manrope,sans-serif}
+.footer-copy{width:100%;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:13px;color:#7A649A;font-family:Manrope,sans-serif}
 
 /* FAQ */
 .faq-item{border-bottom:none;margin-bottom:8px;background:#fff;border-radius:12px;padding:4px 20px;box-shadow:0 2px 8px rgba(192,132,252,.08)}
@@ -305,7 +305,7 @@ footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto
     <button onclick="goto('modalities')" id="nav-modalities">Библиотека</button>
     <button onclick="goto('profile')" id="nav-profile">Профиль</button>
   </div>
-  <button class="nav-exit">Выход</button>
+  <button class="nav-exit" onclick="doLogout()">Выход</button>
   <button class="burger" onclick="toggleMobMenu()" id="burger-btn">☰</button>
   <div class="mob-menu" id="mob-menu">
     <button onclick="goto('dashboard');closeMobMenu()" id="mob-nav-dashboard" class="active">Главная</button>
@@ -494,7 +494,7 @@ footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto
 </main>
 
 <footer>
-  <div style="max-width:1400px;margin:0 auto 40px;padding-bottom:40px;border-bottom:none">
+  <div style="max-width:1400px;margin:0 auto 40px;padding:0 48px 40px;border-bottom:none">
     <h2 style="font-size:18px;font-weight:700;margin-bottom:20px;color:#9585B0;font-family:Manrope,sans-serif">// ЧАСТЫЕ ВОПРОСЫ</h2>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">Это вообще настоящий код или игрушка?<span class="faq-arrow">▾</span></button>
@@ -517,7 +517,7 @@ footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto
       <div class="faq-a">Стоимость всегда считается индивидуально — зависит от задачи и сложности. Напишите мне, и я расскажу подробнее. <a href="https://t.me/juliafomina_ru" target="_blank" style="color:#C084FC;font-weight:600;text-decoration:none;border-bottom:1px solid #EDE9FE">@juliafomina_ru</a></div>
     </div>
   </div>
-  <div style="background:#2D1B4E;margin:0 -48px -32px;padding:40px 48px 32px"><div class="footer-inner">
+  <div style="background:#2D1B4E;margin:0 -48px -32px;padding:48px 48px 32px;box-sizing:content-box"><div class="footer-inner">
     <div>
       <div class="footer-logo">
         <div class="footer-logo-circle">jf</div>
@@ -1133,6 +1133,29 @@ document.addEventListener('DOMContentLoaded', function() {
   var inp = document.getElementById('login-name');
   if (inp) inp.addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
 });
+
+
+function doLogout() {
+  // Reset greeting
+  var h1 = document.querySelector('#sec-dashboard h1');
+  if (h1) h1.textContent = 'Добро пожаловать';
+  // Go to dashboard
+  goto('dashboard');
+  // Show login overlay
+  var overlay = document.getElementById('login-overlay');
+  overlay.style.opacity = '0';
+  overlay.style.display = 'flex';
+  setTimeout(function(){ overlay.style.transition = 'opacity .3s'; overlay.style.opacity = '1'; }, 10);
+  // Reset form
+  var nameInput = document.getElementById('login-name');
+  if (nameInput) nameInput.value = '';
+  loginChecked = false;
+  var box = document.getElementById('login-check-box');
+  if (box) { box.style.background = '#fff'; box.style.borderColor = '#DDD5F0'; box.innerHTML = ''; }
+  var wrap = document.getElementById('login-checkbox-wrap');
+  if (wrap) { wrap.style.borderColor = 'transparent'; wrap.style.background = 'none'; }
+  checkLoginForm();
+}
 
 // ---- Init ----
 renderDashTop();
