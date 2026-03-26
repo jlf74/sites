@@ -220,12 +220,12 @@ footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto
 
 /* MOBILE */
 @media(max-width:768px){
-  body{overflow-x:hidden}
-  main{width:100%;max-width:100%;padding:20px 16px 60px}
+  body{overflow-x:hidden;max-width:100vw}
+  main{width:100%;max-width:100%;padding:20px 16px 60px;overflow-x:hidden}
   h1{font-size:24px;margin-bottom:20px} h2{font-size:19px}
   .nav-links{display:none} .nav-exit{display:none}
   .burger{display:block}
-  nav{padding:0 16px}
+  nav{padding:0 16px;width:100%;max-width:100vw;box-sizing:border-box}
   .dash-grid{grid-template-columns:1fr;gap:14px}
   .dash-card{padding:20px} .dash-title{font-size:16px} .big-num{font-size:40px}
   .access-item{flex-wrap:wrap}
@@ -239,9 +239,9 @@ footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto
   .course-body{padding:14px 16px}
   .course-header-banner{padding:16px 18px}
   .prog-wrap{height:6px}
-  .card{padding:18px} .course-card{margin-bottom:18px}
-  .links-grid{grid-template-columns:repeat(2,1fr)}
-  footer{padding:32px 16px 0;background:#FDF8FF}
+  .card{padding:18px;overflow:hidden} .course-card{margin-bottom:18px;overflow:hidden}
+  #social-grid{grid-template-columns:1fr 1fr!important} #social-grid a{min-height:120px}
+  footer{padding:32px 16px 0;background:#FDF8FF;overflow-x:hidden}
   .footer-inner{grid-template-columns:1fr;gap:28px}
   .footer-copy{margin-top:24px}
 }
@@ -326,7 +326,7 @@ footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto
       <div class="dash-title" id="continue-title">—</div>
       <div class="prog-wrap"><div class="prog-fill" id="continue-prog" style="width:0%"></div></div>
       <div class="prog-count" style="margin-bottom:18px" id="continue-count"></div>
-      <button class="btn btn-primary" onclick="openLesson()">▶ Продолжить урок</button>
+      <button class="btn btn-primary" onclick="openLesson()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="currentColor"/></svg>Продолжить урок</button>
     </div>
     <div class="dash-card">
       <div class="dash-label">// общий прогресс</div>
@@ -346,7 +346,7 @@ footer{background:#2D1B4E;border-top:none;padding:48px 48px 32px;margin-top:auto
   <div id="courses-container"></div>
 
   <h2 style="margin-top:32px;margin-bottom:16px">Мои соцсети</h2>
-  <div class="links-grid" style="grid-template-columns:repeat(3,1fr)">
+  <div class="links-grid" style="grid-template-columns:repeat(3,1fr)" id="social-grid">
 
     <a class="link-card" href="https://t.me/juliafomina_web" target="_blank"
       style="background:linear-gradient(135deg,#C084FC,#818CF8);border:none;color:#fff">
@@ -966,7 +966,7 @@ function renderLessonMain() {
   var prevBtn='<button class="btn btn-ghost"'+(hasPrev?'':' disabled style="opacity:.4;cursor:default"')+' onclick="selectLesson('+(currentLesson-1)+')">← Пред.</button>';
   var nextBtn='<button class="btn '+(l.done?'btn-primary':'btn-outline')+'"'+(hasNext?'':' disabled style="opacity:.4;cursor:default"')+' onclick="selectLesson('+(currentLesson+1)+')">След. →</button>';
   document.getElementById('lesson-main-container').innerHTML =
-    '<div class="video-stub"><div class="play-btn">▶</div></div>'
+    '<div class="video-stub"><div class="play-btn"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M10 7l14 7-14 7V7z" fill="#7C3AED"/></svg></div></div>'
     +buildCheckboxHTML(l.done)
     +'<div class="lesson-nav-row">'+prevBtn+nextBtn+'</div>'
     +'<div class="materials"><h3>Материалы к уроку</h3>'+buildFilesHTML()+'</div>';
@@ -989,7 +989,7 @@ function renderMobilePage() {
   });
   document.getElementById('lesson-mobile-container').innerHTML =
     '<h2 style="margin-bottom:14px">'+lessonTitle(currentLesson)+'</h2>'
-    +'<div class="video-stub" style="margin-bottom:12px"><div class="play-btn">▶</div></div>'
+    +'<div class="video-stub" style="margin-bottom:12px"><div class="play-btn"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M10 7l14 7-14 7V7z" fill="#7C3AED"/></svg></div></div>'
     +buildCheckboxHTML(l.done)
     +'<div class="lesson-nav-row" style="margin-bottom:14px">'+prevBtn+nextBtn+'</div>'
     +'<div class="materials" style="margin-top:12px"><h3>Материалы к уроку</h3>'+buildFilesHTML()+'</div>'
